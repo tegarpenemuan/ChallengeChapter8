@@ -87,7 +87,21 @@ class DatastoreManager @Inject constructor(private val context: Context) {
         }
     }
 
+
+    fun getNama(): Flow<String> {
+        return context.dataStoreAuth.data.map { preferences ->
+            preferences[Constant.PrefDataSore.NAMA].orEmpty()
+        }
+    }
+
+    suspend fun setNama(value: String) {
+        context.dataStoreAuth.edit { preferences ->
+            preferences[Constant.PrefDataSore.NAMA] = value
+        }
+    }
+
     fun getPrefId() = runBlocking { context.dataStoreAuth.getValue(Constant.PrefDataSore.ID, "").firstOrNull() }
+    fun getPrefNama() = runBlocking { context.dataStoreAuth.getValue(Constant.PrefDataSore.NAMA, "").firstOrNull() }
 }
 
 fun <T> DataStore<Preferences>.getValue(

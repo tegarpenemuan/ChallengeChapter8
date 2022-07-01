@@ -1,5 +1,6 @@
 package com.tegarpenemuan.challengechapter8.ui
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -30,6 +31,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import coil.compose.rememberAsyncImagePainter
 import com.tegarpenemuan.challengechapter8.R
 import com.tegarpenemuan.challengechapter8.data.api.tmdb.moviepopuler.MoviePopulerResponse
+import com.tegarpenemuan.challengechapter8.datastore.pref
 import com.tegarpenemuan.challengechapter8.ui.theme.ChallengeChapter8Theme
 import com.tegarpenemuan.challengechapter8.ui.viewmodel.MovieViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,6 +45,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         viewModel.getMoviePopuler()
+        val name = applicationContext.pref().getPrefNama()
 
         setContent {
             ChallengeChapter8Theme {
@@ -51,7 +54,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
                     Column() {
-                        HomeScreenApp()
+                        HomeScreenApp(viewModel,name.toString())
                         DetailsContent(viewModel)
                     }
                 }
@@ -61,13 +64,15 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun HomeScreenApp() {
+fun HomeScreenApp(viewModel: MovieViewModel,nama:String) {
     val context = LocalContext.current
+    val mContext = LocalContext.current
+    val activity = (LocalContext.current as? Activity)
     Column() {
         TopAppBar(
             title = {
                 Text(
-                    text = "Hai, Tegar Penemuan",
+                    text = "Hai, $nama",
                     color = Color.Black
                 )
             },
@@ -75,7 +80,10 @@ fun HomeScreenApp() {
             actions = {
                 Button(
                     onClick = {
+                        viewModel.logout()
                         Toast.makeText(context, "Logout", Toast.LENGTH_SHORT).show()
+                        mContext.startActivity(Intent(mContext, LoginActivity::class.java))
+                        activity!!.finish()
                     },
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red)
                 ) {

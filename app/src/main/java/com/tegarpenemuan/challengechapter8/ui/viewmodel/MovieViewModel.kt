@@ -38,4 +38,10 @@ class MovieViewModel @Inject constructor(
             }
         }
     }
+
+    fun logout() {
+        CoroutineScope(Dispatchers.IO).launch {
+            repository.clearId()
+        }
+    }
 }

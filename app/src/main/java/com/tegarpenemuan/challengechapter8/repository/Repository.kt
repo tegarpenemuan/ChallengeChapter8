@@ -55,6 +55,14 @@ class Repository(
         dataStoreManager.setEmail(value)
     }
 
+    suspend fun getNama(): String? {
+        return dataStoreManager.getNama().firstOrNull()
+    }
+
+    suspend fun setPrefNama(value: String) {
+        dataStoreManager.setNama(value)
+    }
+
     suspend fun getId(): String? {
         return dataStoreManager.getId().firstOrNull()
     }

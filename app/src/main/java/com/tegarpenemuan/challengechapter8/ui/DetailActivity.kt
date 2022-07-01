@@ -3,7 +3,6 @@ package com.tegarpenemuan.challengechapter8.ui
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -24,7 +23,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
-import coil.compose.rememberImagePainter
 import com.tegarpenemuan.challengechapter8.R
 import com.tegarpenemuan.challengechapter8.ui.theme.ChallengeChapter8Theme
 
